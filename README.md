@@ -1,7 +1,7 @@
 # Solar-Panel
 Our client, a Swiss energy company, asked us to identify the best locations for photovoltaic panels. Using long-term sunshine data from stations across Switzerland, we analyze solar exposure to rank sites and deliver data-driven recommendations for efficient, sustainable investment.
 
-## 📖 Description
+## Description
 This project develops a computational model (simulation) of a real or hypothetical system to study its behavior.  
 The model is used to generate reproducible results (tables, figures, and calculations) that support a written report for our client.  
 
@@ -21,7 +21,7 @@ The model is used to generate reproducible results (tables, figures, and calcula
 
 ---
 
-## ⚙️ Requirements & Dependencies
+## Requirements & Dependencies
 To ensure reproducibility, all dependencies (languages, compilers, libraries, versions) must be declared.  
 
 - **Languages used**:  
