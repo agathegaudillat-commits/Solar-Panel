@@ -11,7 +11,6 @@ The model is used to generate reproducible results (tables, figures, and calcula
 ---
 
 ## Project Proposal
-Project_Proposal_PV.pdf
 ---
 
 ## Requirements & Dependencies
