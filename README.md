@@ -54,6 +54,3 @@ To ensure reproducibility, all dependencies (languages, compilers, libraries, ve
   - MatLab 2025
   - GCC 12.2.0 (for compiling C code)  
 
-You can install Python dependencies with:  
-```bash
-pip install -r requirements.txt
