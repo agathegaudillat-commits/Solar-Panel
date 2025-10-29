@@ -11,7 +11,7 @@ The model is used to generate reproducible results (tables, figures, and calcula
 ---
 
 ## Project Proposal
-[Project Proposal PDF](Project_Proposal_PV.pdf)
+[Voir le projet en PDF](https://github.com/agathegaudillat-commits/Solar-Panel/raw/main/Project_Proposal_PV.pdf)
 
 ---
 
