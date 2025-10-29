@@ -11,13 +11,6 @@ The model is used to generate reproducible results (tables, figures, and calcula
 ---
 
 ## Project Proposal
-**(to be completed during the proposal phase)**  
-
-- **Research Question / Motivation**: What question are we trying to answer? Why does it matter?  
-- **State of the Art**: Existing tools, codes, or approaches.  
-- **Objective & Scope**: Clear definition of project goals.  
-- **Approach**: Methods, models, or datasets to be used.  
-- **Feasibility & Schedule**: Gantt chart or table of milestones, plus team workload distribution.  
 
 ---
 
