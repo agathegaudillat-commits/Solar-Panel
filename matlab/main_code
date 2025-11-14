@@ -1,0 +1,183 @@
+% ANALYSE_ENSOLEILLEMENT_ALL
+% Analyse les données nettoyées des stations pour 2024, 2023 et 2022
+% Génère les graphiques et comparaisons séparées pour chaque année,
+% puis une comparaison interannuelle globale et par station.
+
+clear; clc; close all;
+
+%% ==== Chargement des données nettoyées ====
+[cleaned_data_2024, cleaned_data_2023, cleaned_data_2022] = function_clean_data();
+
+%% ==== Boucle sur chaque année ====
+annees = [2024, 2023, 2022];
+cleaned_sets = {cleaned_data_2024, cleaned_data_2023, cleaned_data_2022};
+all_years_data = struct([]);
+
+for a = 1:numel(annees)
+    target_year = annees(a);
+    cleaned_data = cleaned_sets{a};
+
+    % Supprimer les entrées vides
+    nonEmptyIdx = ~cellfun(@isempty, cleaned_data);
+    cleaned_data = cleaned_data(nonEmptyIdx);
+
+    fprintf('\n===== Analyse pour %d =====\n', target_year);
+    fprintf('Stations avec données %d : %d\n', target_year, numel(cleaned_data));
+
+    if isempty(cleaned_data)
+        warning('Aucune donnée %d trouvée dans les fichiers CSV.', target_year);
+        continue;
+    end
+
+    %% ---- Moyenne sur toutes les stations ----
+    all_data = vertcat(cleaned_data{:});
+
+    dates = all_data.Date;
+    sunshine_min = all_data.sre000m0;
+    sunshine_percent = all_data.sremaxmv;
+
+    year_month = datetime(year(dates), month(dates), 1);
+    [unique_months, ~, month_idx] = unique(year_month);
+
+    monthly_min = accumarray(month_idx, sunshine_min, [], @mean);
+    monthly_percent = accumarray(month_idx, sunshine_percent, [], @mean);
+
+    monthly_avg = table(unique_months, monthly_min, monthly_percent, ...
+        'VariableNames', {'Date', 'mean_sre000m0', 'mean_sremaxmv'});
+    monthly_avg = sortrows(monthly_avg, 'Date');
+
+    %% ---- Graphiques par station ----
+    numStations = numel(cleaned_data);
+    figHandles = gobjects(numStations,1);
+
+    for i = 1:numStations
+        T = cleaned_data{i};
+        stationName = string(T{1,1});
+        stationChar = char(stationName); % éviter erreur "Value must be scalar"
+
+        fig = figure('Name', [stationChar ' - ' num2str(target_year)], ...
+            'NumberTitle', 'off', 'Visible', 'off');
+        figHandles(i) = fig;
+
+        yyaxis left
+        plot(T.Date, T.sre000m0, '-o', 'LineWidth', 1.5);
+        ylabel('Durée d''ensoleillement (min)');
+
+        yyaxis right
+        plot(T.Date, T.sremaxmv, '-s', 'LineWidth', 1.5);
+        ylabel('Ensoleillement (%)');
+
+        title(['Station : ' stationChar]);
+        xlabel(['Mois ' num2str(target_year)]);
+        grid on;
+    end
+
+    %% ---- Comparaison globale ----
+    station_names = all_data{:,1};
+    sre000m0_values = all_data.sre000m0;
+    tbl = table(station_names, sre000m0_values);
+    station_avg = varfun(@mean, tbl, 'InputVariables','sre000m0_values', ...
+        'GroupingVariables','station_names');
+
+    [~, idxMax] = max(station_avg.mean_sre000m0_values);
+    [~, idxMin] = min(station_avg.mean_sre000m0_values);
+
+    fprintf('\nStation la PLUS ensoleillée : %s (%.0f min)\n', ...
+        char(station_avg.station_names(idxMax)), station_avg.mean_sre000m0_values(idxMax));
+    fprintf('Station la MOINS ensoleillée : %s (%.0f min)\n', ...
+        char(station_avg.station_names(idxMin)), station_avg.mean_sre000m0_values(idxMin));
+
+    figure('Name', ['Comparaison stations ' num2str(target_year)], 'NumberTitle', 'off');
+    bar(categorical(station_avg.station_names), station_avg.mean_sre000m0_values);
+    xtickangle(45);
+    ylabel('Durée moyenne d''ensoleillement (min)');
+    title(['Comparaison des stations en ' num2str(target_year)]);
+    grid on;
+
+    %% ---- Tableau interactif ----
+    station_names_table = cell(numStations,1);
+    for i = 1:numStations
+        station_names_table{i} = char(cleaned_data{i}{1,1});
+    end
+
+    f = figure('Name',['Stations ' num2str(target_year)], ...
+        'NumberTitle','off','Position',[100 100 300 400]);
+    t = uitable(f, ...
+        'Data', station_names_table, ...
+        'ColumnName', {'Station'}, ...
+        'RowName',[], ...
+        'Position',[20 20 260 360]);
+
+    t.CellSelectionCallback = @(src,event) displayStoredFigure(event, figHandles);
+
+    % Sauvegarde pour comparaison interannuelle
+    all_years_data(a).year = target_year;
+    all_years_data(a).station_avg = station_avg;
+    all_years_data(a).monthly_avg = monthly_avg;
+end
+
+%% ---- Comparaison interannuelle (globale) ----
+if exist('all_years_data', 'var')
+    figure('Name','Comparaison interannuelle globale','NumberTitle','off');
+    hold on;
+    for i = 1:numel(all_years_data)
+        plot(all_years_data(i).monthly_avg.Date, ...
+             all_years_data(i).monthly_avg.mean_sre000m0, '-o', 'LineWidth', 1.5);
+    end
+    hold off;
+    legend(string([all_years_data.year]), 'Location','best');
+    ylabel('Durée moyenne d''ensoleillement (min)');
+    title('Comparaison interannuelle de l''ensoleillement moyen (toutes stations)');
+    grid on;
+end
+
+%% ---- Comparaison interannuelle par station (BARRES regroupées bleues) ----
+% On ne garde que les stations présentes dans toutes les années.
+all_station_names = {all_years_data.station_avg};
+names_per_year = cellfun(@(t) string(t.station_names), all_station_names, 'UniformOutput', false);
+common_stations = intersect(intersect(names_per_year{1}, names_per_year{2}), names_per_year{3});
+
+if ~isempty(common_stations)
+    years = [all_years_data.year];
+    nStations = numel(common_stations);
+    nYears = numel(years);
+
+    % Préparer la matrice [stations x années]
+    station_matrix = NaN(nStations, nYears);
+    for i = 1:nYears
+        avg_table = all_years_data(i).station_avg;
+        for s = 1:nStations
+            idx = strcmp(string(avg_table.station_names), common_stations(s));
+            if any(idx)
+                station_matrix(s,i) = avg_table.mean_sre000m0_values(idx);
+            end
+        end
+    end
+
+    % Création du graphique groupé
+    figure('Name','Comparaison interannuelle par station','NumberTitle','off');
+    b = bar(station_matrix, 'grouped');
+    % Palette bleue claire → foncée selon les années
+    couleurs = [0.6 0.8 1.0; 0.3 0.6 0.9; 0.1 0.3 0.7];
+    for k = 1:nYears
+        b(k).FaceColor = couleurs(k,:);
+    end
+
+    % Ajustements axes et labels
+    set(gca, 'XTickLabel', common_stations, 'XTick', 1:nStations);
+    xtickangle(45);
+    ylabel('Durée moyenne d''ensoleillement (min)');
+    title('Comparaison interannuelle par station (2022–2024)');
+    legend(string(years), 'Location', 'bestoutside');
+    grid on;
+end
+
+
+function displayStoredFigure(event, figHandles)
+    if isempty(event.Indices)
+        return;
+    end
+    row = event.Indices(1);
+    figure(figHandles(row)); % affiche la figure correspondante
+end
+
