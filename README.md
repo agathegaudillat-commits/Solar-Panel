@@ -45,16 +45,55 @@ cd Solar-Panel
 ```
 
 ---
+## 📁 Folder Structure
+
+To run the project, you must place all files in a single folder on your computer. The required structure is:
+Your_folder/
+```bash
+├── Donnees_mensuelles/         # Monthly sunshine data (raw input) 
+├── pv_efficiency.c             # C code for performance-critical calculations 
+├── main_code.m                 # Main MATLAB script 
+├── function_clean_data.m       # Cleans and formats raw data 
+├── function_EPOA.m             # Computes Effective Plane of Array irradiance 
+├── function_Tcell.m            # Estimates cell temperature /n
+```
 
 ## Usage
 
-1. Prepare your data according to the format described in the documentation.
-2. Run the MATLAB scripts for analysis.
-3. (Optional) Compile and run C code for performance-critical computations:
-   ```bash
-   gcc -o analysis analysis.c
-   ./analysis
-   ```
+
+1. Run the MATLAB Scripts
+
+To launch the analysis, open MATLAB and run the main script:
+
+```matlab
+>> main_code
+```
+If the code runs correctly, it will produce:
+- A clean table with all relevant data for the project
+- Graphs showing which stations have the highest sunshine rates
+- A table of estimated cell temperatures for each station
+
+
+## Step 2 – Compile and Run the C Code
+
+To calculate the efficiency rate of the PV cells, compile and run the C program:
+
+```bash
+gcc pv_efficiency.c -o pv_efficiency.exe
+./pv_efficiency.exe
+```
+## Output
+
+If the code runs correctly, it will produce an Excel file containing all calculated data.  
+When opening the file, please check the following:
+
+- The language must be set to **French**.
+- The column separator is **`,`** (comma).
+- The display may appear incorrect depending on your Excel regional settings, but the data itself is valid.
+
+This file provides the numerical results used in the analysis and can be further processed or visualized in MATLAB.
+
+
 4. Review the output and data-driven recommendations.
 
 ---
