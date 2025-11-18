@@ -3,16 +3,16 @@
 Our client, a Swiss energy company, asked us to identify the best locations for photovoltaic (PV) panel installations. Using long-term sunshine data from weather stations across Switzerland, we will analyze solar exposure and other parameters to rank potential sites and deliver data-driven recommendations for efficient and sustainable investments.
 
 ## Description
+This project has the scope of find the best location in swiss to build a solar panel central. We analyse sunshine rate and efficiency.
 
-- **Motivation**: Renewable energy will play an increasingly central role in reducing dependence on fossil fuels. Solar energy, in particular, is fundamental to the energy transition. We are all concerned by this challenge and aim to better understand how to optimize the development of solar parks in the future. Selecting optimal locations for solar panels is not straightforward, as multiple factors must be considered. These include sunshine duration (which is central to our project), topography, accessibility, and urbanization, which can act as a constraint.
+### Input files
+The input data comes from MeteoSwiss and is provided as CSV tables. Each row corresponds to a measurement station, while each column contains specific characteristics such as sunshine duration, temperature, and other relevant environmental variables.
 
-Meanwhile, numerous studies are currently underway to improve the efficiency and durability of solar panels. These efforts focus on developing new cell technologies, optimizing module angle and orientation, and integrating cooling systems. These advancements underscore the importance of rigorous site selection to maximize the benefits of emerging technologies under real environmental conditions.
+### Output fils
+The project outputs include cleaned datasets containing only the essential variables, as well as various graphs, images, and tables summarizing the calculations performed to determine the most suitable location.
 
-- **Scope**: Our objective is to compare the amount of sunshine at different sites and the influence of certain local parameters on the yield of solar panels in order to identify the most favorable location for installing a photovoltaic park. The photovoltaic technology selected for this project is monocrystalline silicon, as it is the most widely used type of PV cell, accounting for approximately 80–90% of global installations [8]. Its high efficiency, durability, and low cost make it the most suitable choice. The project requires a minimum PV surface area of 2 hectares. The photovoltaic park will be installed with a fixed tilt angle of 30° relative to the horizontal plane, facing due south. This configuration is chosen to optimize the angle of incidence of solar radiation throughout the year, thereby maximizing energy yield. The 30° inclination is consistent with best practices for fixed installations at Swiss latitudes and ensures a balanced capture of solar irradiance across seasons [4].
-
-We will use data from MeteoSuisse [1], such as solar radiation, irradiance and temperature, to analyses the duration of sunshine over several years and to estimate the potential output of the park. Where possible, we will also take the terrain into account in order to assess any potential difficulties associated with the installation. The analysis will cover two or three years of data to ensure more reliable results. Our study focuses on data analysis rather than spatial visualization. While mapping can complement the results, our objective is to derive quantitative indicators of solar potential.
-
----
+### Report
+The final report, including all methodologies and conclusions, can be found in the docs folder under the name finalreport.pdf.
 
 ## Project Proposal
 
@@ -58,10 +58,9 @@ Your_folder/
 ├── function_Tcell.m            # Estimates cell temperature /n
 ```
 
-## Usage
+## Running the program
 
-
-1. Run the MATLAB Scripts
+### Run the MATLAB Scripts
 
 To launch the analysis, open MATLAB and run the main script:
 
@@ -74,7 +73,7 @@ If the code runs correctly, it will produce:
 - A table of estimated cell temperatures for each station
 
 
-## Step 2 – Compile and Run the C Code
+### Compile and Run the C Code
 
 To calculate the efficiency rate of the PV cells, compile and run the C program:
 
@@ -82,8 +81,6 @@ To calculate the efficiency rate of the PV cells, compile and run the C program:
 gcc pv_efficiency.c -o pv_efficiency.exe
 ./pv_efficiency.exe
 ```
-## Output
-
 If the code runs correctly, it will produce an Excel file containing all calculated data.  
 When opening the file, please check the following:
 
@@ -94,10 +91,6 @@ When opening the file, please check the following:
 This file provides the numerical results used in the analysis and can be further processed or visualized in MATLAB.
 
 
-4. Review the output and data-driven recommendations.
-
----
-
 ## Project Structure
 
 - `/matlab` – MATLAB scripts for data analysis
@@ -107,11 +100,8 @@ This file provides the numerical results used in the analysis and can be further
 
 ---
 
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
----
+## Contributors
+Perle Boucard and Agathe Gaudillat
 
 ## Licence
 
