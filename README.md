@@ -75,21 +75,8 @@ If the code runs correctly, it will produce:
 
 ### Compile and Run the C Code
 
-To calculate the efficiency rate of the PV cells, compile and run the C program:
-
-```bash
-gcc pv_efficiency.c -o pv_efficiency.exe
-./pv_efficiency.exe
-```
-If the code runs correctly, it will produce an Excel file containing all calculated data.  
-When opening the file, please check the following:
-
-- The language must be set to **French**.
-- The column separator is **`,`** (comma).
-- The display may appear incorrect depending on your Excel regional settings, but the data itself is valid.
-
-This file provides the numerical results used in the analysis and can be further processed or visualized in MATLAB.
-
+This part is handled automatically by the MATLAB code.
+If the code runs correctly, it will generate three CSV files containing the cell efficiency data for each year (2022, 2023, and 2024). 
 
 ## Project Structure
 
