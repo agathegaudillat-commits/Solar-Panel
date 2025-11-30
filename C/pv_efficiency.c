@@ -179,3 +179,4 @@ void mexFunction(int nlhs, mxArray *plhs[],
     // Libération de la mémoire
     mxFree(results);
 }
+
