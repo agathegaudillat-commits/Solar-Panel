@@ -124,6 +124,8 @@ Raw Data (MeteoSwiss)
         ↓
 Data Cleaning (function_clean_data.m)
         ↓
+Calculation of the average sunrate (MeteoSwiss)
+        ↓
 EPOA Calculation — Effective Plane of Array (function_EPOA.m)
         ↓
 PV Cell Temperature Estimation (function_Tcell.m)
