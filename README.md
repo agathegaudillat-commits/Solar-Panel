@@ -88,12 +88,12 @@ To run the project, you must place all files in a single folder on your computer
 Your_folder/
 ```bash
 ├── donnees_mensuelles/         # Monthly sunshine data (raw input)
-├── coordonnees_stations/       # Coordonates of each stations for the map
+├── coordonnees_stations/       # Coordinates of each stations for the map
 ├── pv_efficiency.c             # C code for performance-critical calculations 
 ├── main_code.m                 # Main MATLAB script 
 ├── function_clean_data.m       # Cleans and formats raw data 
 ├── function_EPOA.m             # Computes Effective Plane of Array irradiance 
-├── function_Tcell.m            # Estimates cell temperature /n
+├── function_Tcell.m            # Estimates cell temperature 
 ```
 ## Running the program
 
@@ -111,7 +111,7 @@ The script generates:
 ### Compile and Run the C Code
 
 No manual action is required.
-MATLAB automatically compiles and executes `pv_efficiency.c`
+The C code is compiled and executed automaticaly via MATLAB using a MEX interface or system call.
 If successful, you obtain:
 - `efficiency_2022.csc`
 - `efficiency_2023.csv`
