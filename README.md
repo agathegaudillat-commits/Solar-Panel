@@ -88,7 +88,7 @@ To run the project, you must place all files in a single folder on your computer
 Your_folder/
 ```bash
 ├── donnees_mensuelles/         # Monthly sunshine data (raw input)
-├── coordonnees_stations/  
+├── coordonnees_stations/       # Coordonates of each stations for the map
 ├── pv_efficiency.c             # C code for performance-critical calculations 
 ├── main_code.m                 # Main MATLAB script 
 ├── function_clean_data.m       # Cleans and formats raw data 
@@ -111,11 +111,11 @@ The script generates:
 ### Compile and Run the C Code
 
 No manual action is required.
-MATLAB automatically compiles and executes `pv_efficency.c`
+MATLAB automatically compiles and executes `pv_efficiency.c`
 If successful, you obtain:
-- `efficiency_2022.cvs`
-- `efficiency_2023.cvs`
-- `efficiency_2024.cvs`
+- `efficiency_2022.csc`
+- `efficiency_2023.csv`
+- `efficiency_2024.csv`
 
 ## Workflow summary
 
