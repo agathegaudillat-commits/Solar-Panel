@@ -41,7 +41,7 @@ To ensure reproducibility, all dependencies (languages, compilers, libraries, ve
 
   - MATLAB 2025
   - GCC (for compiling the C code) — MATLAB alone is not sufficient
-  - PVlib for matlab
+  - PVlib for MATLAB
 ---
 
 ## Installing PVlib for MATLAB
