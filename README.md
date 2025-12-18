@@ -111,7 +111,7 @@ The script generates:
 ### Compile and Run the C Code
 
 No manual action is required.
-The C code is compiled and executed automaticaly via MATLAB using a MEX interface or system call.
+The C code is compiled and executed automatically via MATLAB using a MEX interface or system call.
 If successful, you obtain:
 - `efficiency_2022.csv`
 - `efficiency_2023.csv`
