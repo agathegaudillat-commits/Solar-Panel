@@ -9,7 +9,7 @@ MeteoSwiss datasets (sunshine duration, temperature, etc.)
 MATLAB scripts for data cleaning, analysis, and visualization
 C code for performance-critical PV efficiency calculations
 The complete methodology and conclusions can be found in
-docs/finalreport.pdf.
+Project_Proposal_PV.pdf.
 
 ### Input files
 
