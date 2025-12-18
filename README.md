@@ -88,7 +88,7 @@ To run the project, you must place all files in a single folder on your computer
 Your_folder/
 ```bash
 ├── donnees_mensuelles/         # Monthly sunshine data (raw input)
-├── coordonnees_stations/       # Coordinates of each stations for the map
+├── coordonnees_stations/       # Coordinates of each station for the map
 ├── pv_efficiency.c             # C code for performance-critical calculations 
 ├── main_code.m                 # Main MATLAB script 
 ├── function_clean_data.m       # Cleans and formats raw data 
